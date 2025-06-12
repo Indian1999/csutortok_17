@@ -24,7 +24,9 @@ class Network():
         for i in range(epochs):
             error_in_epoch = 0
             for j in range(len(train_x)):
-                output = self.predict(train_x[j])[0]
+                output = train_x[j]
+                for layer in self.layers:
+                    output = layer.forward_propagation(output)
                 error_in_epoch += self.loss(output, train_y[j])
                 error = self.loss_deriv(output, train_y[j])
                 for layer in reversed(self.layers):
